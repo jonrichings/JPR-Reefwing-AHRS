@@ -41,7 +41,7 @@
  * 
  ******************************************************************/
 
-#define DEG_TO_RAD 0.01745329251994   //  PI/180 * degrees
+#define DEG_TO_RAD_JPR 0.01745329251994   //  PI/180 * degrees
 #define RAD_TO_DEG 57.2957795130823   //  180/PI * radians
 
 #ifndef BOARD_NAME
