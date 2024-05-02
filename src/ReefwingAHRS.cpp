@@ -102,7 +102,7 @@ void ReefwingAHRS::begin() {
   #endif
 
   //  Default Sensor Fusion Co-Efficients - see README.md
-  _gyroMeasError = 40.0f * DEG_TO_RAD;   // gyroscope measurement error in rads/s (start at 40 deg/s)
+  _gyroMeasError = 40.0f * DEG_TO_RAD_JPR;   // gyroscope measurement error in rads/s (start at 40 deg/s)
   _alpha = 0.98; // default complementary filter coefficient
   _beta = sqrt(3.0f / 4.0f) * _gyroMeasError;   // compute beta
   _Kp = 2.0f * 5.0f; // These are the free parameters in the Mahony filter and fusion scheme, _Kp for proportional feedback, _Ki for integral
@@ -164,9 +164,9 @@ SensorData ReefwingAHRS::gyroToRadians() {
   //  Convert gyro data from DPS to radians/sec.
   SensorData filterData = _data;
 
-  filterData.gx = _data.gx * DEG_TO_RAD;
-  filterData.gy = _data.gy * DEG_TO_RAD;
-  filterData.gz = _data.gz * DEG_TO_RAD;
+  filterData.gx = _data.gx * DEG_TO_RAD_JPR;
+  filterData.gy = _data.gy * DEG_TO_RAD_JPR;
+  filterData.gz = _data.gz * DEG_TO_RAD_JPR;
 
   return filterData;
 }
@@ -318,8 +318,8 @@ void ReefwingAHRS::kalmanUpdate(float deltaT) {
   //  Assign Kalman Filtered results
   angles.pitch = _kalAngleY;
   angles.roll = _kalAngleX;
-  angles.pitchRadians = angles.pitch * DEG_TO_RAD;
-  angles.rollRadians = angles.roll * DEG_TO_RAD;
+  angles.pitchRadians = angles.pitch * DEG_TO_RAD_JPR;
+  angles.rollRadians = angles.roll * DEG_TO_RAD_JPR;
 }
 
 void ReefwingAHRS::classicUpdate() {
@@ -330,8 +330,8 @@ void ReefwingAHRS::classicUpdate() {
   //  Combine gyro and acc angles using a complementary filter
   angles.pitch = _alpha * angles.pitch + (1.0f - _alpha) * accPitchAngle * RAD_TO_DEG;
   angles.roll = _alpha * angles.roll + (1.0f - _alpha) * accRollAngle * RAD_TO_DEG;
-  angles.pitchRadians = angles.pitch * DEG_TO_RAD;
-  angles.rollRadians = angles.roll * DEG_TO_RAD;
+  angles.pitchRadians = angles.pitch * DEG_TO_RAD_JPR;
+  angles.rollRadians = angles.roll * DEG_TO_RAD_JPR;
 }
 
 void ReefwingAHRS::tiltCompensatedYaw() {
